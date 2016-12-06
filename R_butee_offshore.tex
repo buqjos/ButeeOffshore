@@ -5,10 +5,59 @@
 \usepackage[T1]{fontenc}
 
 % Langue de rédaction
-\usepackage[british]{babel}
+%\usepackage[british]{babel}
+
+% Gestion des images
+\usepackage{graphics}
+\graphicspath{{./img/plot/},{./img/screenshot/}}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+
+% Gestion de l'esthétique
+\usepackage[textwidth=0.7\paperwidth, textheight=0.7\paperheight]{geometry}
+
+% Commandes utilisateurs
+\newcommand{\alinea}{\setlength{\parindent}{1cm}}
+\renewcommand{\listfigurename}{Liste des figures}
+
+% Page de garde
+\title{Compte-rendu du BE Butée offshore}
+\author{\bsc{Muller} Marc \and \bsc{Buquet} Joseph}
 
 \begin{document}
+Rapport
+\section{Abstract}
 
-This is a test!
+\section{Introduction}
 
+%TODO Unités utilisées
+% cm ^= 10 k Pa
+
+%TODO Justification de la raideur transverse
+% Explication de l'isogonflement lors de l'ajout de rondelles de métal
+
+%TODO Choix de l'approximation linéaire de la raideur
+% Choix d'une erreur inférieure à 1% + au moins 5 points
+
+%TODO Raideur initial
+% Objectif 954 x 4 = 3816 N/cm
+
+%TODO Justification choix lamelle
+% Rayon identique à l'élastomère ou supérieur
+
+\section{Approche du problème}
+
+\subsection{Choix des paramètres de Mooney-Rivlin}
+% Les notres : C10 0.2499 C01 0.0942 D1 0.0584
+% Les siennes: C10 0.043  C01 0.495  D1 0.000658
+% Détails de la manip sur Abaqus + explication MR
+
+\subsection{Choix du maillage}
+
+\section{Conclusion}
+
+\listoffigures
+
+\begin{bibliography}{9}
+% CONTACT_SEMINAR page 259
+\end{bibliography}
 \end{document}
