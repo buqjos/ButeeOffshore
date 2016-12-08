@@ -1,19 +1,19 @@
-\documentclass{article}
+Ôªø \documentclass{article}
 
 % Gestion des fonts
 \usepackage[utf8]{inputenc}
 %\usepackage[T1]{fontenc}
 
-% Langue de rÈdaction
+% Langue de r√©daction
 \usepackage[french]{babel}
 
 % Gestion des images
 \usepackage{graphics}
-\usepackage{float}
-\graphicspath{{./img/plot/},{./img/screenshot/}}
+\graphicspath{{./Images/},{./Images/plot/}}
+
 \DeclareGraphicsExtensions{.pdf,.png,.jpg}
 
-% Gestion de l'esthÈtique
+% Gestion de l'esth√®tique
 \usepackage[textwidth=0.7\paperwidth, textheight=0.7\paperheight]{geometry}
 
 % Gestion des espaces
@@ -23,145 +23,231 @@
 \newcommand{\alinea}{\setlength{\parindent}{1cm}}
 \newcommand{\abaqus}{\bsc{Abaqus}\xspace}
 \renewcommand{\listfigurename}{Liste des figures}
+% Bibliographie
+% \bibitem[label 1]{cle 2} Auteur 3, TITRE 4, editeur 5, annee 6
+\renewcommand{\bibitem}[6]{\bibitem[#1]{#2} \textsc{#3}, \emph{#4}, #5, #6}
 
 
 % Page de garde
-\title{Compte-rendu du BE ButÈe offshore}
+\title{Compte-rendu du BE But√©e offshore}
 \author{\bsc{Muller} Marc \and \bsc{Buquet} Joseph}
 
 \begin{document}
-Rapport
+\maketitle
+
+\newpage
+
 \section{Abstract}
 
 \section{Introduction}
 
-%TODO UnitÈs utilisÈes
-% cm ^= 10 k Pa
-
 %TODO Justification de la raideur transverse
-% Explication de l'isogonflement lors de l'ajout de rondelles de mÈtal
+% Explication de l'isogonflement lors de l'ajout de rondelles de m√©tal
 
 %TODO Raideur initiale
 % Objectif 954 x 4 = 3816 N/cm
 
 %TODO Justification choix lamelle
-% Rayon identique ‡ l'ÈlastomËre ou supÈrieur
+% Rayon identique √† l'√©lastom√®re ou sup√©rieur
 
-\section{Approche du problËme}
+\section{Approche du probl√®me}
 
+%TODO Unit√©s utilis√©es
+\begin{tabular}{|l|c|}
+\hline
+Unit√©s & Dimensions \\ \hline
+Longueur & cm \\
+Pression & k Pa \\
+Force & N \\
+Raideur & N\/cm \\ \hline
+\end{tabular}
 
-\subsection{ButÈe offshore}
+\subsection{But√©e offshore}
 % taille, forme
 % compression
 % materiau
+La but√©e offshore √©tudi√©e est une but√©e cylindrique de rayon $R_0 = 70 cm$ et de hauteur $H_0 = 100 cm$ en Chloropr√®ne X10. Dans le cadre de cette √©tude, la but√©e va √™tre soumise √† une compression afin d'√©valuer sa raideur √† une fl√®che de $\Delta H = 30 cm$.
 
+Pour ce faire, une mod√©lisation num√©rique de celle-ci va √™tre faite sous \abaqus. Dans ce contexte, les hypoth√®ses suivantes seront avanc√©es :
+\begin{itemize}
+\item Mat√©riau isotrope
+\item Sym√©trie axiale
+La g√©om√©trie axiale de la pi√®ce est cylindrique. Le mat√©riau est de plus isotrope. Enfin la contrainte de compression est homog√®ne sur la surface sup√©rieure de la pi√®ce et agit parall√®lement √† l'axe de sym√©trie de la pi√®ce.
+\item Mod√©lisation du mat√©riau
+Il est demand√© de travailler avec une loi hyper√©lastique de type Mooney-Rivlin, les d√©tails de cette approximation seront approfondis par la suite.
+\end{itemize}
 
-\subsection{Choix des paramËtres de Mooney-Rivlin}
+\subsection{Choix des param√®tres de Mooney-Rivlin}
+
+Il a √©t√© demand√© pour ce travail d'utiliser une loi hyper√©lastique de type Mooney-Rivlin. Pour la mettre en place, deux r√©sultats de test exp√©rimentaux sont utilis√©s (cf. figure~\ref{fig:essais_exp} : 
+\begin{itemize}
+\item un test de traction uniaxiale
+Ce test est r√©alis√© sur une √©prouvette de longueur nominale $25 mm$ et de section nominale $8 mm^2$ selon une plage de d√©placement de $0$ √† $104 mm$.
+\item un test de traction plane
+Ce test est r√©alis√© sur une √©prouvette de hauteur nominale $35 mm$ et de section nominale $392 mm^2$ selon une plage de d√©placement de $0$ √† $57.5 mm$.
+\end{itemize}
+
+\begin{figure}
+\usegraphics{test_traction_uniaxiale}
+\caption{Traction uniaxiale}
+\usegraphics{test_traction_plane}
+\caption{Traction plane}
+\label{fig:essais_exp}
+\end{figure}
+
+Ces deux essais ont permit d'obtenir deux courbes de r√©ponses en effort-d√©placement (cf. figure~\ref{fig:plot_donnees_essais}). A partir de ces courbes, une approximation des coefficients de Mooney-Rivlin est lanc√©e sur \abaqus. Les tables de points r√©sultant des essais sont pour cela entr√©s dans \abaqus et une √©valuation automatique des coefficients est lanc√©e. Il en r√©sulte les coefficients lus dans le tableau~\ref{tab:donnees_MR}. Ceux-ci sont bien √©videmment √† mettre en face de ceux donn√©es lors du d√©but de ce projet comme r√©f√©rence pour mettre en exergue la forte influence de l'approximation faite dans ce cadre.
+
+\begin{tabular}{|l|c|c|c|}
 % Les notres : C10 0.2499 C01 0.0942 D1 0.0584
 % Les siennes: C10 0.043  C01 0.495  D1 0.000658
-% DÈtails de la manip sur Abaqus + explication MR
+\hline
+ & C10 & C01 & D1 \\ \hline
+Valeurs √©valu√©es & 0.2499 & 0.0942 & 0.0584 \\ \hline
+Valeurs donn√©es & 0.043  & 0.495 & 0.000658 \\ \hline
+\label{tab:donnees_MR}
+\end{tabular} 
+
+Pour rester en coh√©rence avec les r√©sultats obtenus √† l'aide d'\abaqus, il sera choisit de conserver les valeurs dites √©valu√©es comme coefficients de Mooney-Rivlin pour notre mat√©riau. Nous justifions ce choix par la courbe~\ref{fig:plot_donnees_essais} qui synth√©tise les donn√©es exp√©rimentales et les r√©ponses force-d√©placement obtenus avec les coefficients de Mooney-Rivlin.
+
+\begin{figure}
+\usegraphics{plot_donnees_essai}
+\caption{Approximation du comportement du Chloropr√®ne X10 par Mooney-Rivlin}
+\label{fig:plot_donnees_essais}
+\end{figure}
+
+Afin d'√©tayer le choix de la m√©thode de Mooney-Rivlin dans cette √©tude, il est choisit de rappeler cette m√©thode.
+
+\subsection{Explication de la m√©thode de Mooney-Rivlin}
+%TODO √©criture tensorielle
+La m√©thode de Mooney-Rivlin est une m√©thode permettant de mod√©liser le potentiel √©lastique (ou de l'√©nergie de contrainte) d'un mat√©riau. Pour cela, il est choisit une d√©pendance du potentiel √©lastique suivant les d√©viateurs des invariants $I_1$,$I_2$ du tenseur $B = V x V$ de Cauchy-Green gauche d√©finit tel que $I_1 = Trace(B)$, $I_2 = \sec(B)$, $I_3=\det(\sigma)$.
+On remarque que l'invariant $I_3$ n'est pas compris dans ce mod√®le. En effet, pour les √©lastom√®res, nous travaillons avec un effet Poisson $\nu = 0.49$, c'est-√†-dire √† volume quasi-constant. L'invariant $I_3$ est donc √©gal √† 1 et n'est donc pas int√©ressant pour la mod√©lisation de notre mat√©riau puisqu'il n'√©volue pas.
+
+La m√©thode de Mooney-Rivlin r√©sulte de l'am√©lioration du potentiel √©lastique de Mooney (1940) par Rivlin (1948) et statut la relation suivante \cite{wiki_MR}: $W = C_10(I_1-3) + C_01(I_2-3) + C_11(I_1-3)(I_2-3)$.
+%TODO Corriger MR par l'ajout de barre sur les invariants.
+
+De part l'exp√©rience heuristique, il est assum√© que cette approximation convient particuli√®rement bien dans la d√©finition de l'hyper√©lasticit√© des elastom√®res sp√©cialement sur des plages inf√©rieure √† 100\% de d√©formation en traction uniaxiale \cite{msc}.
+%TODO avantages-inconv√©nients de MR
+%Le mod√®le de Mooney-Rivlin peut √™tre vu comme un cas particulier du mod√®le Ogden.
+
+\subsection{Contact}
+Lors de la compression de la but√©e offshore, il peut arriver que deux parties de l'√©lastom√®re rentrent en contact. Dans ce cas, il faut d√©finir des lois de contacts pour les g√©rer. 
+
+\subsection{Choix du maillage}
 
 \subsection{calcul de la raideur}
 
-La raideur caractÈrise la rÈsistance ‡ la dÈformation Èlastique d'un corps, c'est-‡-dire la la valeur d'effort ‡ lui appliquer pour engendrer une dÈformation donnÈe. Dans notre cas, le dÈplacement est imposÈ, et la simulation \abaqus nous fournit la force de rÈaction selon l'axe $\vect{y}$. La raideur $k$ de la butÈe offshore s'exprime ainsi:
+La raideur caract√©rise la r√©sistance √† la d√©formation √©lastique d'un corps, c'est-√†-dire la la valeur d'effort √† lui appliquer pour engendrer une d√©formation donn√©e. Dans notre cas, le d√©placement est impos√©, et la simulation \abaqus nous fournit la force de r√©action selon l'axe $\vect{y}$. La raideur $k$ de la but√©e offshore s'exprime ainsi:
 \begin{displaymath}
 		k=\frac{F_{y}}{y}
 	\end{displaymath}
-avec $y$ le dÈplacement axial imposÈ en compression et $F_{y}$ la force de rÈaction axiale associÈe ‡ celui-ci. 
+avec $y$ le d√©placement axial impos√© en compression et $F_{y}$ la force de r√©action axiale associ√©e √† celui-ci. 
 
-Dans l'ensemble de l'Ètude, la raideur $k$ sera caractÈrisÈe pour un dÈplacement de 30cm afin de pouvoir comparer celle-ci ‡ la raideur des autres modËles proposÈs. Comme il n'y a pas de vibrations d'amplitude de dÈplacement autour d'une valeur quelconque dans ce cas, la raideur correspondra ‡ la pente de la droite reliant l'origine et le point maximal de la courbe de force-dÈplacement gÈnÈrÈe par la simulation \abaqus, c'est-‡-dire calculÈe comme suit:
+Dans l'ensemble de l'√©tude, la raideur $k$ sera caract√©ris√©e pour un d√©placement de 30cm afin de pouvoir comparer celle-ci √† la raideur des autres mod√®les propos√©s. Comme il n'y a pas de vibrations d'amplitude de d√©placement autour d'une valeur quelconque dans ce cas, la raideur correspondra √† la pente de la droite reliant l'origine et le point maximal de la courbe de force-d√©placement g√©n√©r√©e par la simulation \abaqus, c'est-√†-dire calcul√©e comme suit:
 \begin{displaymath}
 		k=\frac{F_{y,max}}{30}
 	\end{displaymath}
-$k$ a pour unitÈ XXXXXXXXXXXXX.
+$k$ a pour unit√© XXXXXXXXXXXXX.
 
 
 \subsection{Influence du maillage}
 
-L'Ètude de la butÈe offshore a dÈbutÈ par une Ètude de l'influence du maillage pour associer un maillage idÈal ‡ la piËce dans la modÈlisation \Abaqus. Ainsi, plusieurs simulations de compression ont ÈtÈ effectuÈes avec la butÈe initiale (voir section suivante, butÈe simple dans Èlements raidisseurs additionnels) pour diffÈrents paramËtres de maille dÈcroissants du plus grossier au plus fin: 4, 3, 2 et 1cm de largeur.
-Une comparaison a consistÈ ‡ comparer les courbes force-dÈplacement associÈs ‡ chacun des maillages pour discerner leurs diffÈrences et ainsi leur influence sur les rÈsultats de la simulation en compression. La figure~\ref{fig:fig1} prÈsente les rÈponses force-dÈplacement associÈes ‡ plusieurs taille d'ÈlÈments S4R (de forme quadratique avec intÈgration rÈduite).
+L'√©tude de la but√©e offshore a d√©but√© par une √©tude de l'influence du maillage pour associer un maillage id√©al √† la pi√®ce dans la mod√©lisation \Abaqus. Ainsi, plusieurs simulations de compression ont √©t√© effectu√©es avec la but√©e initiale (voir section suivante, but√©e simple dans √©lements raidisseurs additionnels) pour diff√©rents param√®tres de maille d√©croissants du plus grossier au plus fin: 4, 3, 2 et 1cm de largeur.
+Une comparaison a consist√© √† comparer les courbes force-d√©placement associ√©s √† chacun des maillages pour discerner leurs diff√©rences et ainsi leur influence sur les r√©sultats de la simulation en compression. La figure~\ref{fig1} pr√©sente les r√©ponses force-d√©placement associ√©es √† plusieurs taille d'√©l√©ments S4R (de forme quadratique avec int√©gration r√©duite).
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\textwidth]{comparaison_mesh}
-	\caption{RÈponse force-dÈplacement de la butÈe pour diffÈrentes tailles de maille.}
+	\caption{R√©ponse force-d√©placement de la but√©e pour diff√©rentes tailles de maille.}
 	\label{fig1}
 \end{figure}
 
-On constate ‡ premiËre vue aucune diffÈrence entre les diffÈrentes courbes et par consÈquent entre les diffÈrents maillages. Quand on zoom pour regarder prÈcisÈment la valeur maximale de la force de rÈaction pour une flËche de 30cm, comme sur la figure~\ref{fig:fig2}, on constate une lËgËre diffÈrence de 150XXX, c'est-‡-dire de 0.8\%, entre un maillage de 4 et 2cm. Un pour un paramËtre de maille plus fin, la valeur maximale de la force de rÈaction converge vers une mÍme valeur.
+
+On constate √† premi√®re vue aucune diff√©rence entre les diff√©rentes courbes et par cons√©quent entre les diff√©rents maillages. Quand on zoom pour regarder pr√©cis√©ment la valeur maximale de la force de r√©action pour une fl√®che de 30cm, comme sur la figure~\ref{fig2}, on constate une l√®g√®re diff√©rence de 150XXX, c'est-√†-dire de 0.8\%, entre un maillage de 4 et 2cm. Un pour un param√®tre de maille plus fin, la valeur maximale de la force de r√©action converge vers une m√™me valeur.
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\textwidth]{comparaison_mesh_zoom}
-	\caption{RÈponse force-dÈplacement de la butÈe pour diffÈrentes tailles de maille - Zoom.}
+	\caption{R√©ponse force-d√©placement de la but√©e pour diff√©rentes tailles de maille - Zoom.}
 	\label{fig2}
 \end{figure}
 
-La finesse du maillage n'a donc que trËs peu d'influence dans notre Ètude de la raideur de la butÈe. Un maillage de base d'Èlements de 2cm de largeur a ÈtÈ cependant choisi pour limiter le temps de calcul, bien qu'un maillage plus fin soit nÈcessaire dans beaucoup des modËles proposÈs o˘ le contact avec les piËces additionneles est crutial.
+La finesse du maillage n'a donc que tr√®s peu d'influence dans notre √©tude de la raideur de la but√©e. Un maillage de base d'√©lements de 2cm de largeur a √©t√© cependant choisi pour limiter le temps de calcul, bien qu'un maillage plus fin soit n√©cessaire dans beaucoup des mod√®les propos√©s o√π le contact avec les pi√®ces additionneles est crutial.
 
 
-\section{ButÈe initiale}
+\section{But√©e initiale}
 
-L'objectif de cette premiËre partie de l'Ètude est de dÈcrire le comportement en compression d'une butÈe offshore en ÈlastomËre libre de tout autre ÈlÈment ou contrainte, afin de rendre compte de la raideur axiale de la piËce et ainsi pouvoir la comparer avec la raideur des autres modËles prÈsentÈs dans la suite de l'Ètude.
+L'objectif de cette premi√®re partie de l'√©tude est de d√©crire le comportement en compression d'une but√©e offshore en √©lastom√®re libre de tout autre √©l√©ment ou contrainte, afin de rendre compte de la raideur axiale de la pi√®ce et ainsi pouvoir la comparer avec la raideur des autres mod√®les pr√©sent√©s dans la suite de l'√©tude.
 
-La forme et le matÈriau de la butÈe ainsi que le dÈplacement imposÈ ‡ ce dernier ont ÈtÈ dÈcrits dans l'approche du problËme. Les Èlements du maillage dont en S4R et ont pour paramËtre 2mm. L'apparence du maillage initial de la piËce est prÈsentÈ dans la figure~\ref{fig:fig3}.
+La forme et le mat√©riau de la but√©e ainsi que le d√©placement impos√© √† ce dernier ont √©t√© d√©crits dans l'approche du probl√®me. Les √©lements du maillage dont en S4R et ont pour param√®tre 2mm. L'apparence du maillage initial de la pi√®ce est pr√©sent√©e dans la figure~\ref{fig3}.
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\textwidth]{image_initial_mesh2}
-	\caption{Visuel du maillage appliquÈ ‡ la butÈe initiale.}
+	\caption{Visuel du maillage appliqu√© √† la but√©e initiale.}
 	\label{fig3}
 \end{figure}
 
-La figure~\ref{fig:fig4} permet de se rendre compte de l'Ècrasement subi par la butÈe. La dÈformation latÈrale maximale est de 23\%.
+La figure~\ref{fig:fig4} permet de se rendre compte de l'√©crasement subi par la but√©e. La d√©formation lat√©rale maximale est de 23\%.
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\textwidth]{comparaison_mesh_zoom}
-	\caption{Visuel de la butÈe initiale suite ‡ la compression (dÈformations Ux affichÈes).}
+	\caption{Visuel de la but√©e initiale suite √† la compression (d√©formations Ux affich√©es).}
 	\label{fig4}
 \end{figure}
 
-La rÈponse force-dÈplacement de la butÈe initiale est affichÈe dans la figure~\ref{fig:fig5}
+La r√©ponse force-d√©placement de la but√©e initiale est affich√©e dans la figure~\ref{fig:fig5}
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\textwidth]{uf_initial_mesh2}
-	\caption{RÈponse force-dÈplacement de la butÈe initiale.}
+	\caption{R√©ponse force-d√©placement de la but√©e initiale.}
 	\label{fig5}
 \end{figure}
 
-On obtient donc une raideur de 631N/cm. Cette valeur servira de rÈfÈrence pour la suite de l'Ètude.
+On obtient donc une raideur de 631N/cm. Cette valeur servira de r√©f√©rence pour la suite de l'√©tude.
 
 
-\section{ButÈe raidie par des lamelles}
+\section{But√©e raidie par des lamelles}
 
-Une premiËre modification apportÈe ‡ la butÈe initiale en vue de quadrupler sa raideur va consister ‡ inister des lamelles horizontales rÈparties rÈguliËrement sur la hauteur de la piËce avec deux diamËtres diffÈrents: des lamelles circulaires du mÍme diamËtre que la butÈe en ÈlastomËre avant sa compression, que l'on nommera "lamelles imbriquÈes" et des lamelles avec un diamËtre plus ÈlevÈ que l'on nommera "lamelles Ètendues". On Ètudiera ce modËle renforcÈ d'une, deux et trois lamelles et on regardera l'influence du diamËtre de ces derniËres sur la raideur finale de la butÈe. Enfin, nous verrons que l'Èpaisseur de ces lamelles horizontales a peu d'influence sur les rÈsultats.
+<<<<<<< HEAD
+Une premi√®re modification apport√©e √† la but√©e initiale en vue de quadrupler sa raideur va consister √† inister des lamelles horizontales r√©parties r√©guli√®rement sur la hauteur de la pi√®ce avec deux diam√®tres diff√©rents: des lamelles circulaires du m√™me diam√®tre que la but√©e en √©lastom√®re avant sa compression, que l'on nommera "lamelles imbriqu√©es" et des lamelles avec un diam√®tre plus √©lev√© que l'on nommera "lamelles √©tendues". On √©tudiera ce mod√®le renforc√© d'une, deux et trois lamelles et on regardera l'influence du diam√®tre de ces derni√®res sur la raideur finale de la but√©e. Enfin, nous verrons que l'√©paisseur de ces lamelles horizontales a peu d'influence sur les r√©sultats.
 
-\subsection{Lamelles imbriquÈes}
+\subsection{Lamelles imbriqu√©es}
 
-Un premier modËle d'insertion de lamelles horizontales circulaires de mÍme rayon que l'ÈlastomËre ‡ l'Ètat initial (70cm) a ÈtÈ construit sur \abaqus. Il a consistÈ ‡ diviser la \textit{part} "ButÈe" en 3 diffÈrentes \textit{part}, c'est-‡-dire en insÈrant un ÈlÈment au milieu des deux autres ÈlÈments constituants la burÈe en ÈlastomËre.
+Un premier mod√®le d'insertion de lamelles horizontales circulaires de m√™me rayon que l'√©lastom√®re √† l'√©tat initial (70cm) a √©t√© construit sur \abaqus. Il a consist√© √† diviser la \textit{part} "But√©e" en 3 diff√©rentes \textit{part}, c'est-√†-dire en ins√©rant un √©l√©ment au milieu des deux autres √©l√©ments constituants la but√©ee en √©lastom√®re.
 
-L'Èpaisseur de la lamelle a ÈtÈ fixÈ arbitrairement\footnote{Enfin, -"arbitrairement"-, avec la prise en considÈration d'un certain ordre de grandeur relatif au matÈriau, tout de mÍme.} ‡ 0.5cm pour commencer les simulations. Cette valeur n'Ètant pas incohÈrente vis-‡-vis des rÈsultats dans la suite, elle a ÈtÈ conservÈe. Dans la partie XXXX, il sera montrÈ que l'Èpaisseur a peu d'influence sur le rÈsultat, et sachant que cette butÈe ‡ une application industrielle, un plus faible dimensionnement pour une plus faible masse sera favorisÈ.
+L'√©paisseur de la lamelle a √©t√© fix√© arbitrairement\footnote{Enfin, -"arbitrairement"-, avec la prise en consid√©ration d'un certain ordre de grandeur relatif au mat√©riau, tout de m√™me.} √† 0.5cm pour commencer les simulations. Cette valeur n'√©tant pas incoh√©rente vis-√†-vis des r√©sultats dans la suite, elle a √©t√© conserv√©e. Dans la partie XXXX, il sera montr√© que l'√©paisseur a peu d'influence sur le r√©sultat, et sachant que cette but√©e √† une application industrielle, un plus faible dimensionnement pour une plus faible masse sera favoris√©.
 
-\subsection{Lamelles Ètendues}
-%changement des paramËtres de contact -> penalty avec k=10
+\subsection{Lamelles √©tendues}
+%changement des param√®tres de contact -> penalty avec k=10
 
-\subsection{Influence de l'Èpaisseur des lamelles}
-%‡faire
+\subsection{Influence de l'√©paisseur des lamelles}
+%√†faire
 
 
-\section{ButÈe raidie par des anneaux}
-%constraint coupling entre le point intÈrieur de la rondelle et le point exterieur de la butÈe
-%self_contact aussi aprËs
 
+\section{But√©e raidie par des anneaux}
+%constraint coupling entre le point int√©rieur de la rondelle et le point exterieur de la but√©e
+%self_contact aussi apr√®s
 
 
 \section{Conclusion}
 
 \listoffigures
 
-\begin{bibliography}{9}
+\begin{thebibliography}{9}
+%\bibitem{latexpratique} Christian \textsc{Rolland}. \emph{\LaTeX{} par la pratique}. O'Reilly, 1999.
+%\bibitem[label]{cle} Auteur, TITRE, editeur, annee
+%\bibitem{label 1}{cle 2}{Auteur 3}{TITRE 4}{editeur 5}{annee 6}
+%\bibitem{msc}{mcstest}{MSC}{Nonlinear finite elements analysis of elastomers}{MSC Software}{20XX}
+\bibitem{msc} Nonlinear finite elements analysis of elastomers
+\bibitem{wiki_MR} https://en.wikipedia.org/wiki/Mooney%E2%80%93Rivlin_solid
+% MSC Software, Nonlinear finite elements analysis of elastomers, MSC, 
 % CONTACT_SEMINAR page 259
-\end{bibliography}
+% Mooney Rivlin
+%https://en.wikipedia.org/wiki/Mooney%E2%80%93Rivlin_solid
+\end{thebibliography}
 \end{document}
+% TOREAD http://www.continuummechanics.org/mooneyrivlin.html
+% TOREAD http://dmm.im.ufrj.br/~liu/Papers/MooneyRivlin.pdf
