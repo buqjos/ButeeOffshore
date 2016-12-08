@@ -162,7 +162,7 @@ Une comparaison a consisté à comparer les courbes force-déplacement associés
 
 \begin{figure}[!h]
 	\centering
-	%\includegraphics[width=\textwidth]{comparaison_mesh}
+	\includegraphics[width=\textwidth]{comparaison_mesh}
 	\caption{Réponse force-déplacement de la butée pour différentes tailles de maille.}
 	\label{fig1}
 \end{figure}
@@ -172,7 +172,7 @@ On constate à première vue aucune différence entre les différentes courbes e
 
 \begin{figure}[!h]
 	\centering
-	%\includegraphics[width=\textwidth]{comparaison_mesh_zoom}
+	\includegraphics[width=\textwidth]{comparaison_mesh_zoom}
 	\caption{Réponse force-déplacement de la butée pour différentes tailles de maille - Zoom.}
 	\label{fig2}
 \end{figure}
@@ -188,25 +188,25 @@ La forme et le matériau de la butée ainsi que le déplacement imposé à ce de
 
 \begin{figure}[!h]
 	\centering
-	%\includegraphics[width=\textwidth]{image_initial_mesh2}
+	\includegraphics[width=\textwidth]{image_initial_mesh2}
 	\caption{Visuel du maillage appliqué à la butée initiale.}
 	\label{fig3}
 \end{figure}
 
-La figure~\ref{fig:fig4} permet de se rendre compte de l'écrasement subi par la butée. La déformation latérale maximale est de 23\%.
+La figure~\ref{fig4} permet de se rendre compte de l'écrasement subi par la butée. La déformation latérale maximale est de 23\%.
 
 \begin{figure}[!h]
 	\centering
-	%\includegraphics[width=\textwidth]{comparaison_mesh_zoom}
+	\includegraphics[width=\textwidth]{image_initial_déformé_mesh2}
 	\caption{Visuel de la butée initiale suite à la compression (déformations Ux affichées).}
 	\label{fig4}
 \end{figure}
 
-La réponse force-déplacement de la butée initiale est affichée dans la figure~\ref{fig:fig5}
+La réponse force-déplacement de la butée initiale est affichée dans la figure~\ref{fig5}
 
 \begin{figure}[!h]
 	\centering
-	%\includegraphics[width=\textwidth]{uf_initial_mesh2}
+	\includegraphics[width=\textwidth]{uf_initial_mesh2}
 	\caption{Réponse force-déplacement de la butée initiale.}
 	\label{fig5}
 \end{figure}
@@ -223,10 +223,180 @@ Une première modification apportée à la butée initiale en vue de quadrupler 
 
 Un premier modèle d'insertion de lamelles horizontales circulaires de même rayon que l'élastomère à l'état initial (70cm) a été construit sur \abaqus. Il a consisté à diviser la \textit{part} "Butée" en 3 différentes \textit{part}, c'est-à-dire en insérant un élément au milieu des deux autres éléments constituants la butéee en élastomère.
 
-L'épaisseur de la lamelle a été fixé arbitrairement\footnote{Enfin, -"arbitrairement"-, avec la prise en considération d'un certain ordre de grandeur relatif au matériau, tout de même.} à 0.5cm pour commencer les simulations. Cette valeur n'étant pas incohérente vis-à-vis des résultats dans la suite, elle a été conservée. Dans la partie XXXX, il sera montré que l'épaisseur a peu d'influence sur le résultat, et sachant que cette butée à une application industrielle, un plus faible dimensionnement pour une plus faible masse sera favorisé.
+L'épaisseur de la lamelle a été fixée arbitrairement\footnote{Enfin, -"arbitrairement"-, avec la prise en considération d'un certain ordre de grandeur relatif au matériau, tout de même.} à 0.5cm pour commencer les simulations. Cette valeur n'étant pas incohérente vis-à-vis des résultats dans la suite, elle a été conservée. Dans la partie XXXX, il sera montré que l'épaisseur a peu d'influence sur le résultat, et sachant que cette butée à une application industrielle, un plus faible dimensionnement pour une plus faible masse sera favorisé. 
+Les figures~\ref{fig6} et~\ref{fig7} présentent l'aspect de la butée avant la simulation de compression, respectivements avec les propriétés de matériau et avec un maillage de taille 2cm appliqué.
+
+\begin{figure}[htbp]
+	\begin{minipage}[c]{.45\linewidth}
+	\begin{center}
+	\includegraphics[width=1.2\textwidth]{image_1lamelle_property}
+	\caption{Visuel des propriétes appliquées à la butée avec une lamelle imbriquée.}
+	\label{fig6}
+	\end{center}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[c]{.45\linewidth}
+	\begin{center}
+	\includegraphics[width=1.2\textwidth]{image_1lamelle_mesh}
+	\caption{Visuel du maillage appliqué à la butée avec une lamelle imbriquée.}
+	\label{fig7}
+	\end{center}
+	\end{minipage}
+\end{figure}
+
+La lamelle ayant été insérée par une partition de la \textit{part} "Butée", elle est par défintion entièrement liée sur sa surface supérieure et inférieure aux deux parties d'élastomères. Ainsi, aucune propriété de contact surfacique supplémentaire n'a été attribuée au contact entre la lamelle et l'élastomère. Seule une propriété d'auto-contact (\textit{self-contact} dans \abaqus) définie par un contact normal dur (\textit{hard}) et un contact tangentiel \textit{rough} a été ajouté à la surface extérieure de la partie en elastomère. 
+
+La figure~\ref{fig8} présente l'aspect de la butée raidie avec une lamelle suite à la compression.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{screen_1lamelle_mesh2_u1}
+	\caption{Visuel de la butée avec une lamelle imbriquée suite à la compression (déformations Ux affichées).}
+	\label{fig8}
+\end{figure}
+
+La courbe de la figure~\ref{fig9} correspond à la réponse force-déplacement de la butée raidie avec une lamelle. On constate que la raideur est passée de 631N à 1053N avec l'ajout d'une lamelle, c'est-à-dire une augmentation de 67\%. Cette solution est donc encore loin des 300\% nécessaires pour valider la condition d'augmentation de la raideur.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{uf_1lamelle_mesh2}
+	\caption{Réponse force-déplacement de la butée avec une lamelle imbriquée.}
+	\label{fig9}
+\end{figure}
+
+L'étude de cette solution s'est poursuivie avec l'insertion d'une seconde lamelle dans la butée. Des paramètres de contact identiques à ceux présentés précédemment ont été définis. La figure~\ref{fig10} présente l'aspect maillé de la butée avant la simulation de compression, et la figure~\ref{fig11} en donne l'aspect après.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{image_2lamelles_mesh}
+	\caption{Visuel du maillage appliqué à la butée avec deux lamelles imbriquées.}
+	\label{fig10}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{screen_2lamelles_mesh2_u1}
+	\caption{Visuel de la butée avec deux lamelles imbriquées suite à la compression (déformations Ux affichées).}
+	\label{fig11}
+\end{figure}
+
+La courbe de la figure~\ref{fig12} indique la valeur de la raideur de cette butée: 1690N. Ceci correspond à une augmentation de 168\% de la raideur par rapport à celle de la butée initiale. Cepandant, cette raideur n'est pas encore suffisante et ainsi cette solution n'est pas validée.
+ 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{uf_2lamelles_mesh2}
+	\caption{Réponse force-déplacement de la butée avec deux lamelles imbriquées.}
+	\label{fig12}
+\end{figure}
+
+Il s'agit ainsi d'ajouter encore une troisième lamelle dans le modèle pour espérer atteindre la valeur de raideur prescrite, c'est-à-dire quatre fois plus grande que celle du modèle initial de 631N, soit environ 2500N. La figure~\ref{fig13} présente l'aspect maillé de la butée avec trois lamelles avant la simulation de compression, et on constatera que la taille d'élément a due être affinée à 1cm pour le calcul, et la figure~\ref{fig14} en donne l'aspect après la simulation.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{image_3lamelles_mesh}
+	\caption{Visuel du maillage appliqué à la butée avec trois lamelles imbriquées.}
+	\label{fig13}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{screen_2lamelles_mesh2_u1}
+	\caption{Visuel de la butée avec trois lamelles imbriquées suite à la compression (déformations Ux affichées).}
+	\label{fig14}
+\end{figure}
+
+La figure~\ref{fig15} présente la réponse force-déplacement de la butée offshore avec 3 lamelles imbriquées et indique une valeur de raideur de 2320N. Ceci correspond à une augmentation de 268\% de la raideur par rapport à celle de la butée initiale. Malheureusement, cette solution n'atteint toujours pas l'objectif de 300\%.
+ 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{uf_3lamelles_mesh1}
+	\caption{Réponse force-déplacement de la butée avec trois lamelles imbriquées.}
+	\label{fig15}
+\end{figure}
 
 \subsection{Lamelles étendues}
 %changement des paramètres de contact -> penalty avec k=10
+Il a été montré dans la partie précédente que même avec l'insertion de 3 lamelles fines (équitablement réparties sur la hauteur) à la butée, le critère de quadruplement de la raideur de la butée initiale n'est pas tout à fait validé. La figure~\ref{fig16} présente une vue rapprochée de l'auto-contact qui s'effectue au niveau des lamelles.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{screen_1lamelle_mesh2_u1_zoom}
+	\caption{Visuel du contact qui s'effectue au niveau des lamelles.}
+	\label{fig16}
+\end{figure}
+
+Sur cette figure on constate que l'élastomère se déforme au-delà de l'horizontale formé par la face supérieure (ou inférieure) de la lamelle. C'est ensuite le contact avec l'autre partie d'élastomère qui l'empèche de se déformer au-delà du plan médian de la lamelle. Dans notre cas, la lamelle est relativement fine, ce qui implique que l'élastomère ne peut se déformer verticalement que sur 0.25cm. Pourtant, ce detail semble avoir son importance.
+
+Ainsi, un second modèle de butée raidie par insertion de lamelles horizontales est introduit. Il se distingue du premier par le diamètre des lamelles; ici, les lamelles auront un rayon de 80cm, soit 10cm de plus que le rayon de l'élastomère à l'instant initial. Théoriquement, la raideur devrait être légèrement augmentée par l'absence de delta de déformation verticale.
+
+Les pièces ont donc été dimensionnées séparément sur \abaqus, puis ajoutées ensemble. La figure~\ref{fig17} en donne un aspect visuel pour une lamelle étendue insérée. Le contact entre les lamelles et l'élastomère ainsi que l'auto-contact ont été définis par un contact normal \textit{hard} et un contact tangentiel \textit{penalty}.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{image_1lamelle_large_load}
+	\caption{Visuel de la butée avec une lamelle étendue avant la compression.}
+	\label{fig17}
+\end{figure}
+
+La figure~\ref{fig18} présente l'aspect de la butée raidie avec une lamelle suite à la compression.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{screen_1lamelle_large_mesh2_u1}
+	\caption{Visuel de la butée avec une lamelle étendue suite à la compression (déformations Ux affichées).}
+	\label{fig18}
+\end{figure}
+
+On constate d'après les courbes de la figure\ref{fig19} que la raideur n'est passée que de 1053N à 1060N avec l'ajout d'une lamelle étendue, c'est-à-dire une augmentation de moins d'1\%. Si cette faible influence du diamètre de la lamelle se confirme, il est à craindre que cette solution ne suffise toujours pas à valider le critère.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{uf_1lamelle_large_mesh1}
+	\caption{Réponse force-déplacement de la butée avec une lamelle étendue.}
+	\label{fig19}
+\end{figure}
+
+Les figures~\ref{fig20} et~\ref{fig21} donnent un aspect visuel de la déformation suite à la compression des butées avec deux et trois lamelles étendues respectivement.
+
+\begin{figure}[htbp]
+	\begin{minipage}[c]{.45\linewidth}
+	\begin{center}
+	\includegraphics[width=1.2\textwidth]{screen_2lamelles_large_mesh1_u1}
+	\caption{Visuel de la déformation subie par la butée avec deux lamelles étendues.}
+	\label{fig20}
+	\end{center}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[c]{.45\linewidth}
+	\begin{center}
+	\includegraphics[width=1.2\textwidth]{screen_3lamelles_large_mesh1_u1}
+	\caption{Visuel de la déformation subie par la butée avec trois lamelles étendues.}
+	\label{fig21}
+	\end{center}
+	\end{minipage}
+\end{figure}
+
+Les courbes des figures~\ref{fig22} et~\ref{fig23} représentent les réponses force-déplacement associées aux butées avec deux et trois lamelles.
+
+\begin{figure}[htbp]
+	\begin{minipage}[c]{.45\linewidth}
+	\begin{center}
+	\includegraphics[width=1.2\textwidth]{uf_2lamelles_large_mesh1}
+	\caption{Réponse force-déplacement de la butée avec deux lamelles étendues.}
+	\label{fig22}
+	\end{center}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[c]{.45\linewidth}
+	\begin{center}
+	\includegraphics[width=1.2\textwidth]{uf_3lamelles_large_mesh1}
+	\caption{Réponse force-déplacement de la butée avec trois lamelles étendues.}
+	\label{fig23}
+	\end{center}
+	\end{minipage}
+\end{figure}
+
+On constate en effet que pour 2 lamelles étendues, la raideur grimpe à 1708N (1.1\% de plus que pour les lamelles imbriquées) et pour trois lamelles, elle monte à 2375N, ce qui est toujours en deça des 2500N espérés. Ainsi, la solution d'étendre les lamelles au-delà du diamètre de l'élastomère n'était pas idéal, en plus de présenter une augmentation de masse conséquente.
 
 \subsection{Influence de l'épaisseur des lamelles}
 %àfaire
