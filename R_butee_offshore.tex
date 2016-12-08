@@ -2,7 +2,7 @@
 
 % Gestion des fonts
 \usepackage[utf8]{inputenc}
-%\usepackage[T1]{fontenc}
+\usepackage[T1]{fontenc}
 
 % Langue de rédaction
 \usepackage[french]{babel}
@@ -87,9 +87,9 @@ Ce test est réalisé sur une éprouvette de hauteur nominale $35 mm$ et de sect
 \end{itemize}
 
 \begin{figure}
-\usegraphics{test_traction_uniaxiale}
+\includegraphics{test_traction_uniaxiale}
 \caption{Traction uniaxiale}
-\usegraphics{test_traction_plane}
+\includegraphics{test_traction_plane}
 \caption{Traction plane}
 \label{fig:essais_exp}
 \end{figure}
@@ -109,7 +109,7 @@ Valeurs données & 0.043  & 0.495 & 0.000658 \\ \hline
 Pour rester en cohérence avec les résultats obtenus à l'aide d'\abaqus, il sera choisit de conserver les valeurs dites évaluées comme coefficients de Mooney-Rivlin pour notre matériau. Nous justifions ce choix par la courbe~\ref{fig:plot_donnees_essais} qui synthétise les données expérimentales et les réponses force-déplacement obtenus avec les coefficients de Mooney-Rivlin.
 
 \begin{figure}
-\usegraphics{plot_donnees_essai}
+\includegraphics{plot_donnees_essai}
 \caption{Approximation du comportement du Chloroprène X10 par Mooney-Rivlin}
 \label{fig:plot_donnees_essais}
 \end{figure}
