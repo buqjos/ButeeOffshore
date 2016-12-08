@@ -9,6 +9,7 @@
 
 % Gestion des images
 \usepackage{graphics}
+\usepackage{float}
 \graphicspath{{./img/plot/},{./img/screenshot/}}
 \DeclareGraphicsExtensions{.pdf,.png,.jpg}
 
@@ -87,13 +88,13 @@ Une comparaison a consisté à comparer les courbes force-déplacement associés à c
 	\label{fig1}
 \end{figure}
 
-On constate à première vue aucune différence entre les différentes courbes et par conséquent entre les différents maillages. Quand on zoom pour regarder précisément la valeur maximale de la force de réaction pour une flèche de 30cm, comme sur la figure~\ref{fig:fig1}, on constate une lègère différence de 150XXX, c'est-à-dire de 0.8\%, entre un maillage de 4 et 2cm. Un pour un paramètre de maille plus fin, la valeur maximale de la force de réaction converge vers une même valeur.
+On constate à première vue aucune différence entre les différentes courbes et par conséquent entre les différents maillages. Quand on zoom pour regarder précisément la valeur maximale de la force de réaction pour une flèche de 30cm, comme sur la figure~\ref{fig:fig2}, on constate une lègère différence de 150XXX, c'est-à-dire de 0.8\%, entre un maillage de 4 et 2cm. Un pour un paramètre de maille plus fin, la valeur maximale de la force de réaction converge vers une même valeur.
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\textwidth]{comparaison_mesh_zoom}
 	\caption{Réponse force-déplacement de la butée pour différentes tailles de maille - Zoom.}
-	\label{fig1}
+	\label{fig2}
 \end{figure}
 
 La finesse du maillage n'a donc que très peu d'influence dans notre étude de la raideur de la butée. Un maillage de base d'élements de 2cm de largeur a été cependant choisi pour limiter le temps de calcul, bien qu'un maillage plus fin soit nécessaire dans beaucoup des modèles proposés où le contact avec les pièces additionneles est crutial.
@@ -103,15 +104,47 @@ La finesse du maillage n'a donc que très peu d'influence dans notre étude de la 
 
 L'objectif de cette première partie de l'étude est de décrire le comportement en compression d'une butée offshore en élastomère libre de tout autre élément ou contrainte, afin de rendre compte de la raideur axiale de la pièce et ainsi pouvoir la comparer avec la raideur des autres modèles présentés dans la suite de l'étude.
 
-La forme et le matériau de la butée ainsi que le déplacement imposé à ce dernier ont été décrits dans l'approche du problème. Les élements du maillage dont en S4R et ont pour paramètre 2mm. 
+La forme et le matériau de la butée ainsi que le déplacement imposé à ce dernier ont été décrits dans l'approche du problème. Les élements du maillage dont en S4R et ont pour paramètre 2mm. L'apparence du maillage initial de la pièce est présenté dans la figure~\ref{fig:fig3}.
 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{image_initial_mesh2}
+	\caption{Visuel du maillage appliqué à la butée initiale.}
+	\label{fig3}
+\end{figure}
+
+La figure~\ref{fig:fig4} permet de se rendre compte de l'écrasement subi par la butée. La déformation latérale maximale est de 23\%.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{comparaison_mesh_zoom}
+	\caption{Visuel de la butée initiale suite à la compression (déformations Ux affichées).}
+	\label{fig4}
+\end{figure}
+
+La réponse force-déplacement de la butée initiale est affichée dans la figure~\ref{fig:fig5}
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\textwidth]{uf_initial_mesh2}
+	\caption{Réponse force-déplacement de la butée initiale.}
+	\label{fig5}
+\end{figure}
+
+On obtient donc une raideur de 631N/cm. Cette valeur servira de référence pour la suite de l'étude.
 
 
 \section{Butée raidie par des lamelles}
 
+Une première modification apportée à la butée initiale en vue de quadrupler sa raideur va consister à inister des lamelles horizontales réparties régulièrement sur la hauteur de la pièce avec deux diamètres différents: des lamelles circulaires du même diamètre que la butée en élastomère avant sa compression, que l'on nommera "lamelles imbriquées" et des lamelles avec un diamètre plus élevé que l'on nommera "lamelles étendues". On étudiera ce modèle renforcé d'une, deux et trois lamelles et on regardera l'influence du diamètre de ces dernières sur la raideur finale de la butée. Enfin, nous verrons que l'épaisseur de ces lamelles horizontales a peu d'influence sur les résultats.
+
 \subsection{Lamelles imbriquées}
 
-\subsection{Lamelles larges}
+Un premier modèle d'insertion de lamelles horizontales circulaires de même rayon que l'élastomère à l'état initial (70cm) a été construit sur \abaqus. Il a consisté à diviser la \textit{part} "Butée" en 3 différentes \textit{part}, c'est-à-dire en insérant un élément au milieu des deux autres éléments constituants la burée en élastomère.
+
+L'épaisseur de la lamelle a été fixé arbitrairement\footnote{Enfin, -"arbitrairement"-, avec la prise en considération d'un certain ordre de grandeur relatif au matériau, tout de même.} à 0.5cm pour commencer les simulations. Cette valeur n'étant pas incohérente vis-à-vis des résultats dans la suite, elle a été conservée. Dans la partie XXXX, il sera montré que l'épaisseur a peu d'influence sur le résultat, et sachant que cette butée à une application industrielle, un plus faible dimensionnement pour une plus faible masse sera favorisé.
+
+\subsection{Lamelles étendues}
 %changement des paramètres de contact -> penalty avec k=10
 
 \subsection{Influence de l'épaisseur des lamelles}
