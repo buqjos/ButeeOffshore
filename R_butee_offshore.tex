@@ -1,8 +1,8 @@
-﻿ \documentclass{article}
+﻿\documentclass{article}
 
 % Gestion des fonts
 \usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
+%\usepackage[T1]{fontenc}
 
 % Langue de rédaction
 \usepackage[french]{babel}
@@ -19,16 +19,13 @@
 % Gestion des espaces
 \usepackage{xspace}
 
-% Gestion des outils math
-\usepackage{amsmath}
-
 % Commandes utilisateurs
 \newcommand{\alinea}{\setlength{\parindent}{1cm}}
 \newcommand{\abaqus}{\bsc{Abaqus}\xspace}
 \renewcommand{\listfigurename}{Liste des figures}
 % Bibliographie
 % \bibitem[label 1]{cle 2} Auteur 3, TITRE 4, editeur 5, annee 6
-%\renewcommand{\bibitem}[6]{\bibitem[#1]{#2} \textsc{#3}, \emph{#4}, #5, #6}
+\renewcommand{\bibitem}[6]{\bibitem[#1]{#2} \textsc{#3}, \emph{#4}, #5, #6}
 
 
 % Page de garde
@@ -91,9 +88,9 @@ Ce test est réalisé sur une éprouvette de hauteur nominale $35 mm$ et de sect
 \end{itemize}
 
 \begin{figure}
-\includegraphics{test_traction_uniaxiale}
+\usegraphics{test_traction_uniaxiale}
 \caption{Traction uniaxiale}
-\includegraphics{test_traction_plane}
+\usegraphics{test_traction_plane}
 \caption{Traction plane}
 \label{fig:essais_exp}
 \end{figure}
@@ -113,7 +110,7 @@ Valeurs données & 0.043  & 0.495 & 0.000658 \\ \hline
 Pour rester en cohérence avec les résultats obtenus à l'aide d'\abaqus, il sera choisit de conserver les valeurs dites évaluées comme coefficients de Mooney-Rivlin pour notre matériau. Nous justifions ce choix par la courbe~\ref{fig:plot_donnees_essais} qui synthétise les données expérimentales et les réponses force-déplacement obtenus avec les coefficients de Mooney-Rivlin.
 
 \begin{figure}
-%\includegraphics{plot_donnees_essai}
+\usegraphics{plot_donnees_essai}
 \caption{Approximation du comportement du Chloroprène X10 par Mooney-Rivlin}
 \label{fig:plot_donnees_essais}
 \end{figure}
@@ -133,36 +130,41 @@ De part l'expérience heuristique, il est assumé que cette approximation convie
 %Le modèle de Mooney-Rivlin peut être vu comme un cas particulier du modèle Ogden.
 
 \subsection{Contact}
-Lors de la compression de la butée offshore, il peut arriver que deux parties de l'élastomère rentrent en contact. Dans ce cas, il faut définir des lois de contacts pour les gérer. 
+Lors de la compression de la butée offshore, l'élastomère se déforme à tel point que ses faces latérales viennent entrer en contact soit avec une lamelle d'acier ou avec lui-même. Dans ce cas, il faut définir une loi de contact pour éviter des problèmes d'interpénétration de la matière et obtenir des résultats convenables.
 
-\subsection{Choix du maillage}
+Dans cette étude, deux types de contact sont définis :
+\begin{itemize}
+\item le contact liant les parties aciers à l'élastomère
+\item le contact pour les faces latérales de l'élastomère
+\end{itemize}
 
-\subsection{calcul de la raideur}
+Le premier contact est un contact de type \bsc{Tie} dans \abaqus, l'hypothèse est faite que l'interface entre la plaque d'acier et l'élastomère peut être considérée comme un encastrement. De manière classique, le maintien en position d'un élastomère et d'un acier est réalisé par une colle. Il est donc supposé que cette colle située à l'interface de nos deux pièces est rigides et qu'elle ne permet pas le mouvement des pièces ni en traction ni en cisaillement. Dans le cadre de cette étude où le comportement de notre élastomère est caractérisé en compression, il est raisonnable de croire que cette hypothèse n'influera qu'en très faible partie sur nos résultats et nous ne la considérerons plus par la suite.
 
-La raideur caractérise la résistance à la déformation élastique d'un corps, c'est-à-dire la la valeur d'effort à lui appliquer pour engendrer une déformation donnée. Dans notre cas, le déplacement est imposé, et la simulation \abaqus nous fournit la force de réaction selon l'axe $\vec{y}$. La raideur $k$ de la butée offshore s'exprime ainsi:
+Pour le deuxième type de contact à définir, c'est-à-dire entre les parties latérales de l'élastomères et soit les lamelles d'aciers soit leur symétrique par rapport aux lamelles, un contact de type \bsc{Penalty} est mis en place. Celui-ci sera détaillé par la suite.
 
+\subsection{Calcul de la raideur}
+
+La raideur caractérise la résistance à la déformation élastique d'un corps, c'est-à-dire la la valeur d'effort à lui appliquer pour engendrer une déformation donnée. Dans notre cas, le déplacement est imposé, et la simulation \abaqus nous fournit la force de réaction selon l'axe $\vect{y}$. La raideur $k$ de la butée offshore s'exprime ainsi:
 \begin{displaymath}
 		k=\frac{F_{y}}{y}
-\end{displaymath}
+	\end{displaymath}
 avec $y$ le déplacement axial imposé en compression et $F_{y}$ la force de réaction axiale associée à celui-ci. 
 
 Dans l'ensemble de l'étude, la raideur $k$ sera caractérisée pour un déplacement de 30cm afin de pouvoir comparer celle-ci à la raideur des autres modèles proposés. Comme il n'y a pas de vibrations d'amplitude de déplacement autour d'une valeur quelconque dans ce cas, la raideur correspondra à la pente de la droite reliant l'origine et le point maximal de la courbe de force-déplacement générée par la simulation \abaqus, c'est-à-dire calculée comme suit:
-
 \begin{displaymath}
 		k=\frac{F_{y,max}}{30}
-\end{displaymath}
-
+	\end{displaymath}
 $k$ a pour unité XXXXXXXXXXXXX.
 
 
 \subsection{Influence du maillage}
 
-L'étude de la butée offshore a débuté par une étude de l'influence du maillage pour associer un maillage idéal à la pièce dans la modélisation \abaqus. Ainsi, plusieurs simulations de compression ont été effectuées avec la butée initiale (voir section suivante, butée simple dans élements raidisseurs additionnels) pour différents paramètres de maille décroissants du plus grossier au plus fin: 4, 3, 2 et 1cm de largeur.
+L'étude de la butée offshore a débuté par une étude de l'influence du maillage pour associer un maillage idéal à la pièce dans la modélisation \Abaqus. Ainsi, plusieurs simulations de compression ont été effectuées avec la butée initiale (voir section suivante, butée simple dans élements raidisseurs additionnels) pour différents paramètres de maille décroissants du plus grossier au plus fin: 4, 3, 2 et 1cm de largeur.
 Une comparaison a consisté à comparer les courbes force-déplacement associés à chacun des maillages pour discerner leurs différences et ainsi leur influence sur les résultats de la simulation en compression. La figure~\ref{fig1} présente les réponses force-déplacement associées à plusieurs taille d'éléments S4R (de forme quadratique avec intégration réduite).
 
 \begin{figure}[!h]
 	\centering
-	%\includegraphics[width=\textwidth]{comparaison_mesh}
+	\includegraphics[width=\textwidth]{comparaison_mesh}
 	\caption{Réponse force-déplacement de la butée pour différentes tailles de maille.}
 	\label{fig1}
 \end{figure}
@@ -172,7 +174,7 @@ On constate à première vue aucune différence entre les différentes courbes e
 
 \begin{figure}[!h]
 	\centering
-	%\includegraphics[width=\textwidth]{comparaison_mesh_zoom}
+	\includegraphics[width=\textwidth]{comparaison_mesh_zoom}
 	\caption{Réponse force-déplacement de la butée pour différentes tailles de maille - Zoom.}
 	\label{fig2}
 \end{figure}
@@ -188,7 +190,7 @@ La forme et le matériau de la butée ainsi que le déplacement imposé à ce de
 
 \begin{figure}[!h]
 	\centering
-	%\includegraphics[width=\textwidth]{image_initial_mesh2}
+	\includegraphics[width=\textwidth]{image_initial_mesh2}
 	\caption{Visuel du maillage appliqué à la butée initiale.}
 	\label{fig3}
 \end{figure}
@@ -197,7 +199,7 @@ La figure~\ref{fig:fig4} permet de se rendre compte de l'écrasement subi par la
 
 \begin{figure}[!h]
 	\centering
-	%\includegraphics[width=\textwidth]{comparaison_mesh_zoom}
+	\includegraphics[width=\textwidth]{comparaison_mesh_zoom}
 	\caption{Visuel de la butée initiale suite à la compression (déformations Ux affichées).}
 	\label{fig4}
 \end{figure}
@@ -206,7 +208,7 @@ La réponse force-déplacement de la butée initiale est affichée dans la figur
 
 \begin{figure}[!h]
 	\centering
-	%\includegraphics[width=\textwidth]{uf_initial_mesh2}
+	\includegraphics[width=\textwidth]{uf_initial_mesh2}
 	\caption{Réponse force-déplacement de la butée initiale.}
 	\label{fig5}
 \end{figure}
@@ -216,7 +218,7 @@ On obtient donc une raideur de 631N/cm. Cette valeur servira de référence pour
 
 \section{Butée raidie par des lamelles}
 
-
+<<<<<<< HEAD
 Une première modification apportée à la butée initiale en vue de quadrupler sa raideur va consister à inister des lamelles horizontales réparties régulièrement sur la hauteur de la pièce avec deux diamètres différents: des lamelles circulaires du même diamètre que la butée en élastomère avant sa compression, que l'on nommera "lamelles imbriquées" et des lamelles avec un diamètre plus élevé que l'on nommera "lamelles étendues". On étudiera ce modèle renforcé d'une, deux et trois lamelles et on regardera l'influence du diamètre de ces dernières sur la raideur finale de la butée. Enfin, nous verrons que l'épaisseur de ces lamelles horizontales a peu d'influence sur les résultats.
 
 \subsection{Lamelles imbriquées}
