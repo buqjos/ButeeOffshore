@@ -154,7 +154,7 @@ Dans l'ensemble de l'étude, la raideur $k$ sera caractérisée pour un déplace
 \begin{displaymath}
 		k=\frac{F_{y,max}}{30}
 	\end{displaymath}
-$k$ a pour unité XXXXXXXXXXXXX.
+$k$ a pour unité \[N/cm\].
 
 
 \subsection{Influence du maillage}
@@ -170,7 +170,7 @@ Une comparaison a consisté à comparer les courbes force-déplacement associés
 \end{figure}
 
 
-On constate à première vue aucune différence entre les différentes courbes et par conséquent entre les différents maillages. Quand on zoom pour regarder précisément la valeur maximale de la force de réaction pour une flèche de 30cm, comme sur la figure~\ref{fig2}, on constate une lègère différence de 150XXX, c'est-à-dire de 0.8\%, entre un maillage de 4 et 2cm. Un pour un paramètre de maille plus fin, la valeur maximale de la force de réaction converge vers une même valeur.
+On constate à première vue aucune différence entre les différentes courbes et par conséquent entre les différents maillages. Quand on zoom pour regarder précisément la valeur maximale de la force de réaction pour une flèche de 30cm, comme sur la figure~\ref{fig2}, on constate une lègère différence de 150N, c'est-à-dire de 0.8\%, entre un maillage de 4 et 2cm. Un pour un paramètre de maille plus fin, la valeur maximale de la force de réaction converge vers une même valeur.
 
 \begin{figure}[!h]
 	\centering
@@ -256,7 +256,7 @@ La figure~\ref{fig8} présente l'aspect de la butée raidie avec une lamelle sui
 	\label{fig8}
 \end{figure}
 
-La courbe de la figure~\ref{fig9} correspond à la réponse force-déplacement de la butée raidie avec une lamelle. On constate que la raideur est passée de 631N à 1053N avec l'ajout d'une lamelle, c'est-à-dire une augmentation de 67\%. Cette solution est donc encore loin des 300\% nécessaires pour valider la condition d'augmentation de la raideur.
+La courbe de la figure~\ref{fig9} correspond à la réponse force-déplacement de la butée raidie avec une lamelle. On constate que la raideur est passée de 631 à 1053N/cm avec l'ajout d'une lamelle, c'est-à-dire une augmentation de 67\%. Cette solution est donc encore loin des 300\% nécessaires pour valider la condition d'augmentation de la raideur.
 
 \begin{figure}[!h]
 	\centering
@@ -281,7 +281,7 @@ L'étude de cette solution s'est poursuivie avec l'insertion d'une seconde lamel
 	\label{fig11}
 \end{figure}
 
-La courbe de la figure~\ref{fig12} indique la valeur de la raideur de cette butée: 1690N. Ceci correspond à une augmentation de 168\% de la raideur par rapport à celle de la butée initiale. Cepandant, cette raideur n'est pas encore suffisante et ainsi cette solution n'est pas validée.
+La courbe de la figure~\ref{fig12} indique la valeur de la raideur de cette butée: 1690N/cm. Ceci correspond à une augmentation de 168\% de la raideur par rapport à celle de la butée initiale. Cepandant, cette raideur n'est pas encore suffisante et ainsi cette solution n'est pas validée.
  
 \begin{figure}[!h]
 	\centering
@@ -290,7 +290,7 @@ La courbe de la figure~\ref{fig12} indique la valeur de la raideur de cette but�
 	\label{fig12}
 \end{figure}
 
-Il s'agit ainsi d'ajouter encore une troisième lamelle dans le modèle pour espérer atteindre la valeur de raideur prescrite, c'est-à-dire quatre fois plus grande que celle du modèle initial de 631N, soit environ 2500N. La figure~\ref{fig13} présente l'aspect maillé de la butée avec trois lamelles avant la simulation de compression, et on constatera que la taille d'élément a due être affinée à 1cm pour le calcul, et la figure~\ref{fig14} en donne l'aspect après la simulation.
+Il s'agit ainsi d'ajouter encore une troisième lamelle dans le modèle pour espérer atteindre la valeur de raideur prescrite, c'est-à-dire quatre fois plus grande que celle du modèle initial de 631N/cm, soit environ 2500N/cm. La figure~\ref{fig13} présente l'aspect maillé de la butée avec trois lamelles avant la simulation de compression, et on constatera que la taille d'élément a due être affinée à 1cm pour le calcul, et la figure~\ref{fig14} en donne l'aspect après la simulation.
 
 \begin{figure}[!h]
 	\centering
@@ -306,7 +306,7 @@ Il s'agit ainsi d'ajouter encore une troisième lamelle dans le modèle pour esp
 	\label{fig14}
 \end{figure}
 
-La figure~\ref{fig15} présente la réponse force-déplacement de la butée offshore avec 3 lamelles imbriquées et indique une valeur de raideur de 2320N. Ceci correspond à une augmentation de 268\% de la raideur par rapport à celle de la butée initiale. Malheureusement, cette solution n'atteint toujours pas l'objectif de 300\%.
+La figure~\ref{fig15} présente la réponse force-déplacement de la butée offshore avec 3 lamelles imbriquées et indique une valeur de raideur de 2320N/cm. Ceci correspond à une augmentation de 268\% de la raideur par rapport à celle de la butée initiale. Malheureusement, cette solution n'atteint toujours pas l'objectif de 300\%.
  
 \begin{figure}[!h]
 	\centering
@@ -330,7 +330,7 @@ Sur cette figure on constate que l'élastomère se déforme au-delà de l'horizo
 
 Ainsi, un second modèle de butée raidie par insertion de lamelles horizontales est introduit. Il se distingue du premier par le diamètre des lamelles; ici, les lamelles auront un rayon de 80cm, soit 10cm de plus que le rayon de l'élastomère à l'instant initial. Théoriquement, la raideur devrait être légèrement augmentée par l'absence de delta de déformation verticale.
 
-Les pièces ont donc été dimensionnées séparément sur \abaqus, puis ajoutées ensemble. La figure~\ref{fig17} en donne un aspect visuel pour une lamelle étendue insérée. Le contact entre les lamelles et l'élastomère ainsi que l'auto-contact ont été définis par un contact normal \textit{hard} et un contact tangentiel \textit{penalty}.
+Les pièces ont donc été dimensionnées séparément sur \abaqus, puis ajoutées ensemble. La figure~\ref{fig17} en donne un aspect visuel pour une lamelle étendue insérée. Le contact entre les lamelles et l'élastomère ainsi que l'auto-contact ont été définis par un contact normal \textit{hard} et un contact tangentiel \textit{penalty} défini par un coefficient de friction de 10\footnote{Ordre de grandeur cohérent avec les informations à ce sujet décrites dans \ref{XXXXXXXXX}.}.
 
 \begin{figure}[!h]
 	\centering
@@ -348,7 +348,7 @@ La figure~\ref{fig18} présente l'aspect de la butée raidie avec une lamelle su
 	\label{fig18}
 \end{figure}
 
-On constate d'après les courbes de la figure\ref{fig19} que la raideur n'est passée que de 1053N à 1060N avec l'ajout d'une lamelle étendue, c'est-à-dire une augmentation de moins d'1\%. Si cette faible influence du diamètre de la lamelle se confirme, il est à craindre que cette solution ne suffise toujours pas à valider le critère.
+On constate d'après les courbes de la figure~\ref{fig19} que la raideur n'est passée que de 1053N/cm à 1060N/cm avec l'ajout d'une lamelle étendue, c'est-à-dire une augmentation de moins d'1\%. Si cette faible influence du diamètre de la lamelle se confirme, il est à craindre que cette solution ne suffise toujours pas à valider le critère.
 
 \begin{figure}[!h]
 	\centering
@@ -397,16 +397,145 @@ Les courbes des figures~\ref{fig22} et~\ref{fig23} représentent les réponses f
 	\end{minipage}
 \end{figure}
 
-On constate en effet que pour 2 lamelles étendues, la raideur grimpe à 1708N (1.1\% de plus que pour les lamelles imbriquées) et pour trois lamelles, elle monte à 2375N, ce qui est toujours en deça des 2500N espérés. Ainsi, la solution d'étendre les lamelles au-delà du diamètre de l'élastomère n'était pas idéal, en plus de présenter une augmentation de masse conséquente.
+On constate en effet que pour 2 lamelles étendues, la raideur grimpe à 1708N/cm (1.1\% de plus que pour les lamelles imbriquées) et pour trois lamelles, elle monte à 2375N/cm, ce qui est toujours en deça des 2500N/cm espérés. Ainsi, la solution d'étendre les lamelles au-delà du diamètre de l'élastomère n'a pas grandement favorisé l'effet de raidissement, en plus de présenter une augmentation de masse conséquente.
 
 \subsection{Influence de l'épaisseur des lamelles}
 %àfaire
+Comme expliqué précédemment, un choix arbitraite d'une épaisseur de 0.5cm des lamelles en acier a été faite. Ne sachant guère l'influence d'une augmentation de cette épaisseur sur la raideur globale de la butée, sinon qu'elle réduit la proportion d'élastomère, et, comme il a été vu dans la partie précédent pour des lamelles imbriquées, qu'elle augmente le delta de déformation vertical au niveau du contact élastomère-élastomère.
 
+Sur les figures~\ref{fig24} et~\ref{fig25} sont présentés respectivement l'aspect déformé en compression d'un modèle de butée avec une lamelle de même diamètre que la butée non-déformée épaisse de 1cm et la réponse force-déformation qui en incombe.
 
+\begin{figure}[htbp]
+	\begin{minipage}[c]{.45\linewidth}
+	\begin{center}
+	%\includegraphics[width=1.2\textwidth]{screen_1lamelle_mesh2_u1-1cm}
+	\caption{Visuel de la déformation subie par la butée avec une lamelle imbriquée épaisse de 1cm.}
+	\label{fig24}
+	\end{center}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[c]{.45\linewidth}
+	\begin{center}
+	%\includegraphics[width=1.2\textwidth]{uf_1lamelle_mesh2_1cm}
+	\caption{Réponse force-déplacement de la butée avec une lamelle imbriquée épaisse de 1cm.}
+	\label{fig25}
+	\end{center}
+	\end{minipage}
+\end{figure}
+
+On constate que la raideur passe de 1053 à 1063N/cm, soit une très faible augmentation de moins d'1\%. Par conséquent, on en déduit que le delta de déplacement vertical de l'élastomère au niveau des lamelles à peu d'influence à cette échelle-là.
+
+Par ailleurs, un essai de simulation de la butée raidie par trois lamelles étendues et épaisses de 1cm a été réalisé. L'aspect suite à la compression ainsi que la réponse force-déplacement associée est présentée dans les figures~\ref{fig26} et~\ref{fig27}.
+
+\begin{figure}[htbp]
+	\begin{minipage}[c]{.45\linewidth}
+	\begin{center}
+	%\includegraphics[width=1.2\textwidth]{screen_3lamelles_large_mesh_1_u1_1cm}
+	\caption{Visuel de la déformation subie par la butée avec trois lamelles étendues épaisses de 1cm.}
+	\label{fig24}
+	\end{center}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[c]{.45\linewidth}
+	\begin{center}
+	%\includegraphics[width=1.2\textwidth]{uf_3lamelles_large_mesh1_1cm}
+	\caption{Réponse force-déplacement de la butée avec trois lamelles étendues épaisses de 1cm.}
+	\label{fig25}
+	\end{center}
+	\end{minipage}
+\end{figure}
+
+Dans ce cas, la butée raidie a quasiment atteint la raideur désirée avec 2487N/cm. Par contre, la masse d'acier a été doublée. Il convient donc de trouver une solution plus efficace et plus rapide à fabriquer pour raidir la butée que des lamelles insérées et collées entre de grandes section cylindriques d'élastomère. 
 
 \section{Butée raidie par des anneaux}
 %constraint coupling entre le point intérieur de la rondelle et le point exterieur de la butée
 %self_contact aussi après
+Une autre solution envisagée dans cette étude afin de quadrupler la raideur obtenue pour la butée initiale est d'ajouter des anneaux en acier entourant la butée sur son diamètre extérieur avant déformation.
+
+Ainsi, dans la même logique d'étude que précedemment, plusieurs modèles se distinguant uniquement par le nombre d'anneaux ajoutés à la butée initiale sont crées sur \abaqus puis simulés en vue d'obtenir leurs raideurs respectives.
+
+Les anneaux sont en acier\footnote{Acier choisi comme précédemment sans réelle considération de son influence du point-de-vue de la résistance mécanique, celle-ci ayant un module d'Young peu comparable avec celui du chloroprène X10.} et un diamètre à-priori arbitraire\footnote{Encore une fois, le choix a été fait dans la considération des ordres de grandeur et du fait qu'un diamètre trop faible lui engendrait un rôle moins poignant dans le raidissement.} de 72.5cm a été choisi, soit un diamètre de section de 5cm.
+
+La mise en place d'un modèle pertinent sur \abaqus étant particulièrement important dans ce cas, la démarche de modélisation sera courtement décrite dans le cas d'un modèle avec un anneau\footnote{Appellé "rondelle" dans le fichier .cae de \Abaqus, faute de meilleur mot au moment de la modélisation.}.
+
+La liaison de contact avec entre l'élastomère et les surfaces constituant les \textit{rigid boby} où sont appliquées les conditions initiales et limites sont identiques à celles définies précedemment (contact normal \textit{hard} et contact tangentiel \textit{penalty} défini par un coefficient de friction de 10. Une partition de la pièce au niveau de la définition des propriétés a été crée de manière à définir une liaison \textit{coupling} entre le point intérieur de l'anneau et le point extérieur de la butée en élastomère, avec lequel il est en contact (point rouge sur la figure~\ref{fig28}), afin de lier le plan horizontal avec l'anneau tout au long de la compression, comme vu sur la figure~\ref{fig28}. Dans la réalité, bien-entendu, un système de retenue des anneaux devra être mis en place, comme par exemple en insérant lègèrement l'anneau dans l'élastomère. Enfin, le contact entre l'élastomère et lui-même lors de la déformation a aussi été défini, identique à celui des modèles précédents. Le maillage S4R fin de taille 1cm a été conservé car il convient bien dans la simulation.
+
+\begin{figure}[!h]
+	\centering
+	%\includegraphics[width=\textwidth]{image_1rondelle_interaction}
+	\caption{Visualisation des interactions définies sur un modèle avec un anneau.}
+	\label{fig28}
+\end{figure}
+
+Dans la suite sont présentées les simulations de compression de le butée raidie avec un, deux et trois anneaux en acier ainsi que les raideurs qui leur sont associées.
+
+La figure~\ref{fig29} présente l'aspect de la butée raidie avec un anneau suite à la compression, la figure~\ref{fig30} en présente la réponse force-déplacement..
+
+\begin{figure}[!h]
+	\centering
+	%\includegraphics[width=\textwidth]{screen_1rondelle_mesh_1_u1}
+	\caption{Visuel de la butée avec un anneau suite à la compression (déformations Ux affichées).}
+	\label{fig29}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	%\includegraphics[width=\textwidth]{uf_1rondelle_mesh1}
+	\caption{Réponse force-déplacement de la butée avec un anneau.}
+	\label{fig30}
+\end{figure}
+
+On constate d'après la courbe que la raideur n'est passée que de 630N/cm à 949N/cm avec l'ajout d'un anneau par rapport au modèle initial, c'est-à-dire une augmentation de seulement 50\% de la raideur, et une diminution de 10\% par rapport au modèle avec une lamelle, ce qui paraît un peu décevant.
+
+Un second anneau est ajouté à la butée, équitablement réparti avec le premier sur la hauteur de celle-ci. Les figures~\ref{fig31} et~\ref{fig32} en présentent l'aspect déformé ainsi que la réponse force-déplacement.
+
+\begin{figure}[!h]
+	\centering
+	%\includegraphics[width=\textwidth]{screen_2rondelles_mesh_1_u1}
+	\caption{Visuel de la butée avec deux anneaux suite à la compression (déformations Ux affichées).}
+	\label{fig31}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	%\includegraphics[width=\textwidth]{uf_2rondelles_mesh1}
+	\caption{Réponse force-déplacement de la butée avec deux anneaux.}
+	\label{fig32}
+\end{figure}
+
+Dans ce cas à deux anneaux, la raideur augmente à 1431N/cm, encore bien en deça de la valeur exigée. Au moins un troisème et un certainement un quatrième anneau seront nécessaires. Le modèle de la butée ainsi que la réponse force-déplacement pour trois anneaux sont présentés dans les figures~\ref{fig33} et~\ref{fig34}, où l'on constate en effet que la raideur n'a atteint que 2028N/cm, et ceux pour un modèle à quatre anneaux sont décrits dans les figures~\ref{fig35} et~\ref{fig36}.
+
+\begin{figure}[!h]
+	\centering
+	%\includegraphics[width=\textwidth]{screen_3rondelles_mesh_1_u1}
+	\caption{Visuel de la butée avec trois anneaux suite à la compression (déformations Ux affichées).}
+	\label{fig33}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	%\includegraphics[width=\textwidth]{uf_3rondelles_mesh1}
+	\caption{Réponse force-déplacement de la butée avec trois anneaux.}
+	\label{fig34}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	%\includegraphics[width=\textwidth]{screen_4rondelles_mesh_1_u1}
+	\caption{Visuel de la butée avec quatre anneaux suite à la compression (déformations Ux affichées).}
+	\label{fig35}
+\end{figure}
+
+\begin{figure}[!h]
+	\centering
+	%\includegraphics[width=\textwidth]{uf_4rondelles_mesh1}
+	\caption{Réponse force-déplacement de la butée avec quatre anneaux.}
+	\label{fig36}
+\end{figure}
+
+La valeur de raideur de 2500N/cm exigée afin de valider le critère de raideur a été atteint, et même légèrement dépassée à 2700N/cm (8\% de plus).
+
+Ainsi, le cahier des charges exigeant un critère de quadruplement de la raideur par rapport à la butée simple a été rempli. Pourtant, cette validation implique un modèle à quatre anneaux de 70cm de diamètre environ et de 5cm de section, représentant une masse bien plus élevée que pour de fines lamelles, ainsi qu'un système de retenue des anneaux en hauteur, pas forcément facile à mettre en place.
 
 
 \section{Conclusion}
