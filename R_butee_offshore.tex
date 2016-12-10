@@ -22,6 +22,7 @@
 % Commandes utilisateurs
 \newcommand{\alinea}{\setlength{\parindent}{1cm}}
 \newcommand{\abaqus}{\bsc{Abaqus}\xspace}
+\newcommand{\fa}[1]{\bsc{#1}\xspace}
 \renewcommand{\listfigurename}{Liste des figures}
 % Bibliographie
 % \bibitem[label 1]{cle 2} Auteur 3, TITRE 4, editeur 5, annee 6
@@ -407,6 +408,57 @@ On constate en effet que pour 2 lamelles étendues, la raideur grimpe à 1708N (
 \section{Butée raidie par des anneaux}
 %constraint coupling entre le point intérieur de la rondelle et le point exterieur de la butée
 %self_contact aussi après
+
+\section{Influence des lamelles sur la raideur transverse}
+Jusqu'à présent, l'hypothèse était faite que l'ajout de lamelles pour augmenter la raideur de notre butée ne variait que très faiblement la valeur de la raideur transverse. Afin de vérifier cette hypothèse et de la valider ou non pour notre solution, il sera fait un comparatif de l'évolution de la raideur sans, avec une, deux puis trois lamelles. 
+
+\begin{itemize}
+\item Choix de la loi de comportement
+Tout comme pour le calcul de la raideur en compression de notre butée, le choix est fait d'utiliser un modèle numérique avec la même loi de comportement hyperélastique selon les coefficients de Mooney-Rivlin précédent présentés.
+\item Choix du modèle numérique
+Le déplacement imposé étant transverse à l'axe, l'utilisation d'un modèle axisymmétrique n'est plus possible. Il est choisit d'étudier un modèle solide 3D sur \abaqus.
+\item Choix du maillage
+Du fait de la modélisation solide 3D, il est nécessaire d'utiliser un maillage plus grossier que celui utilisé pour notre modélisation axisymmétrique. Son influence sera présentée par la suite. 
+\end{itemize}
+
+\subsection{Conception du modèle sous \abaqus}
+Il est choisit de définir quatre \fa{Parts} distinctes pour ce modèle :
+\begin{itemize}
+\item une \fa{Part} butée élastomère en \fa{solid 3D} pour modéliser les différentes couches de notre élastomère.
+\item une \fa{Part} rondelle acier en \fa{solid 3D} pour modéliser les lamelles en acier se positionnant entre chaque couche d'élastomère
+\item deux \fa{Parts} définit comme des \fa{analytical surface} pour modéliser nos mords encasté et mobile à chaque extrémité de notre butée. 
+\end{itemize}
+
+Ces différentes parties sont assemblées selon le modèle désiré. Les assemblages selon chaque surfaces sont :
+\begin{itemize}
+\item entre un mord et une couche d'élastomère est choisit d'utiliser un \fa{Coupling} entre un \fa{Reference Point} lié au mord et la surface de contact de l'élastomère.
+\item entre une couche d'élastomère et une lamelle d'acier est choisit d'utiliser un \fa{Tie} entre une surface maître lié à la lamelle d'acier et une surface esclave lié à l'élastomère. Le choix entre surface maître et esclave n'est pas primordial ici puisque les surfaces de contact resteront sensiblement planes et donc n'entraineront aucune irrégularités. Ici il est choisit d'utiliser l'acier comme surface maître pour des raisons pratiques de maillage. Dans le cas d'une non-convergence due à ce contact, il est en effet moins coûteux en temps de calcul de mailler plus finement notre lamelle d'acier que notre couche d'élastomère.
+\end{itemize}
+
+Il est choisit de se placer en non-linéaire géométrique. % à justifier
+
+Afin d'évaluer les performances du maillage, il est choisit de faire la comparaison entre deux maillages : 10 cm et 20 cm en maille tetraédrique C3D10.
+
+Pour comparer les raideurs, un déplacement de 30 cm selon une direction perpendiculaire à l'axe de révolution de la butée offshore est appliqué. 
+
+\subsection{Influence du maillage}
+Les résultats calculés par \abaqus sont résumés dans le tableau~\ref{tab:comp_mesh_transverse}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+Maillage & Sans lamelle & Une lamelle & Deux lamelles & Trois lamelles \\ \hline
+10 cm & 2582 N & 2655 N & 2782 N & 2881 N \\ \hline
+20 cm & 2645 N & 2692 N & 2856 N & 2920 N \\ \hline
+Erreur & 2,4\% & 1,4\% & 2,6\% & 1,4 \% \\ \hline
+
+\caption{Comparaison des forces résultants à un déplacement transversal de 30 cm sur la butée}
+\label{tab:comp_mesh_transverse}
+\end{tabular}
+
+Après lectures de l'erreur entre les forces résultantes suivant le choix du maillage, il est observé d'une part que celle-ci ne croît pas en fonction du nombre de lamelles et d'autre part que, dans le pire des cas, celle-ci atteint une valeur de 2,6\%. On suppose donc que l'on est proche de la convergence du maillage pour notre calcul, et ainsi que les valeurs calculées pour un maillage de taille 10 cm auront une erreur maximale inférieure à 3\% de la valeur obtenue pour un maillage optimal. Cette hypothèse ne semble pas incohérente puisque la grandeur cherchée est une grandeur globale au système et non en un point particulier de la structure.  Notre maillage pour la suite de la modélisation sera fixé à 10 cm.
+
+\subsection{Comparaison entre les raideurs calculées pour un maillage 10 cm}
+Il est choisit comme comparatif de regarder l'évolution de la raideur transverse en fonction de la longueur cumulée d'elastomère de la butée. Ce choix est fait puisque le chloroprène X10 est le sujet principal de notre étude
+
 
 
 \section{Conclusion}
